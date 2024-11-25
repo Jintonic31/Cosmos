@@ -1,0 +1,104 @@
+@font-face{
+    font-family: 'Orbitron-Regular';
+    src: url('./fonts/Orbitron/Orbitron-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 나머지 스타일 */
+html, body, #root, .slick-list, .slick-track {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* 스크롤바를 숨김 */
+    box-sizing: border-box; /* 패딩이나 보더를 포함한 전체 크기 계산 */
+}
+
+* {
+    box-sizing: border-box; /* 모든 요소에 box-sizing: border-box 적용 */
+}
+
+.iouterBox{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin:0;
+    position: relative;
+    overflow: hidden; /* 슬라이더가 화면을 벗어나지 않도록 설정 */
+    background-color:black;
+}
+
+.scrollbackground{
+    width:100%;
+    height:100%;
+    position: absolute; /* 스크롤 숫자 뒤에 배경을 고정 */
+    top: 0;
+    left: 0;
+    z-index: 0; /* 다른 요소 뒤로 배치 */
+    object-fit: cover; /* 배경 이미지를 영역에 맞게 조정 */
+}
+
+
+.scroll-wheel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:12%;
+    height:100%;
+    overflow: hidden; /* 넘치는 숫자들을 잘라냄 */
+    position: relative;
+    z-index: 1; /* 배경보다 위에 표시 */
+  }
+
+#scrollcontainer0{
+    margin-left:290px;
+}
+#scrollcontainer1{
+    margin:0 30px;   
+}
+  
+  .scroll-wheel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .number-item {
+    font-family: Orbitron-Regular;
+    font-size:150px;
+    color: #4a4a4a;
+    height: 100%;
+    text-align: center;
+    transition: color 0.3s;
+  }
+  
+  .number-item.selected {
+    font-family: Orbitron-Regular;
+    font-size:150px;
+    color: white;
+    margin:20px 0;
+  }
+
+  .submitBtnWrap{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width:20%;
+    height:100%;
+  }
+  .submitBtn{
+    position:absolute;
+    width:100%;
+    height:18%;
+    bottom:95px;
+  }
+  
