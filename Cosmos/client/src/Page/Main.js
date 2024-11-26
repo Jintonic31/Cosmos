@@ -34,7 +34,7 @@ export default function Main() {
 
     // 슬라이드 지속 시간 동적 설정
     const handleBeforeChange = (current, next) => {
-        const slideDelays = [17010, 30000]; // 첫 슬라이드: 18초, 두 번째 슬라이드: 3초
+        const slideDelays = [17010, 30000]; // 첫 슬라이드: 17초, 두 번째 슬라이드: 30초
         setAutoplaySpeed(slideDelays[next % slideDelays.length]);
     };
 
