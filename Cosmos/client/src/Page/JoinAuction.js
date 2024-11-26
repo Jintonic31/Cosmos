@@ -50,18 +50,24 @@ export default function JoinAuction() {
                         muted
                         onLoadedData={handleVideoLoad} // 비디오 로딩 완료 시 처리
                     >
-                        <source src={`${process.env.REACT_APP_VIDEO_SRC}/testvideo.mp4`} type="video/mp4" />
+                        <source src={`${process.env.REACT_APP_VIDEO_SRC}/2_video.mp4`} type="video/mp4" />
                         {/* 지원되지 않는 브라우저를 위한 대체 텍스트 */}
                         이 브라우저는 안됨~
                     </video>
-                    {/* <div className="playBtn">
-                       <img src={`${process.env.REACT_APP_IMG_SRC}/playbtn.png`} alt="play button" />
-                    </div> */}
                 </div>
 
-                <div className="timerBox">
-                    <img src={`${process.env.REACT_APP_IMG_SRC}/timerimg.png`} alt="타이머" />
-
+                <div className="playerBox">
+                    <video 
+                        className='videoPlayer' 
+                        controls
+                        autoPlay
+                        muted
+                        onLoadedData={handleVideoLoad} // 비디오 로딩 완료 시 처리
+                    >
+                        <source src={`${process.env.REACT_APP_VIDEO_SRC}/3_video.mp4`} type="video/mp4" />
+                        {/* 지원되지 않는 브라우저를 위한 대체 텍스트 */}
+                        이 브라우저는 안됨~
+                    </video>
                 </div>
 
             </Slider>

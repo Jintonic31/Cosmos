@@ -1,58 +1,68 @@
-/* 나머지 스타일 */
 html, body, #root, .slick-list, .slick-track {
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden; /* 스크롤바를 숨김 */
-    box-sizing: border-box; /* 패딩이나 보더를 포함한 전체 크기 계산 */
+    overflow: hidden; /* 스크롤바 제거 */
+    box-sizing: border-box;
 }
 
 * {
-    box-sizing: border-box; /* 모든 요소에 box-sizing: border-box 적용 */
+    box-sizing: border-box; /* 기본 box-sizing */
 }
-
 
 .louterBox {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
     padding: 0;
-    margin:0;
-    position: relative;
-    overflow: hidden; /* 슬라이더가 화면을 벗어나지 않도록 설정 */
 }
-
 
 .lslider {
+    display: flex;
     width: 100%;
     height: 100%;
-    top: 0;
-    left: 0;
-    bottom:0;
-    right:0;
 }
 
-.lplayerBox, .successBox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.lplayerBox {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    position: relative;
 }
 
 .lvideoPlayer {
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    overflow:hidden;
+    object-fit: cover; /* 왜곡 없이 슬라이드 채움 */
+    display: block;
 }
 
-.successBox img{
-    width:100%;
-    height:100%;
-    position:relative;
-    z-index:0;
+.successBox {
+    position: relative; /* gohomeBox 배치를 위한 relative */
+    overflow:hidden;
+    width: 100%;
+    height: 100vh;
+}
+
+.successBox img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 왜곡 없이 슬라이드 채움 */
+}
+
+.gohomeBox {
+    position: absolute; /* 이미지 위에 겹침 */
+    bottom: 0; /* 슬라이드 하단 고정 */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.gohomeBtn img {
+    width: 150px; /* 버튼 크기 조정 */
+    cursor: pointer;
 }
