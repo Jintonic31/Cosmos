@@ -11,6 +11,7 @@ const SubStart = lazy( ()=>import('../Page/SubStart') )
 const SelectPlanet = lazy( ()=>import('../Page/SelectPlanet') )
 const InputMoney = lazy( ()=>import('../Page/InputMoney') )
 const LoadingVideo = lazy( ()=>import('../Page/LoadingVideo') )
+const LoadingAuction = lazy( ()=>import('../Page/LoadingAuction') )
 
 
 
@@ -40,6 +41,10 @@ const root = createBrowserRouter([
     {
         path:'/loadingvideo',
         element:<Suspense fallback={Loading}><LoadingVideo /></Suspense>
+    },
+    {
+        path:'/loadingauction',
+        element:<Suspense fallback={Loading}><LoadingAuction /></Suspense>
     },
 
 

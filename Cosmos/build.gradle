@@ -33,7 +33,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
-implementation 'org.springframework:spring-websocket:6.1.14'
 	
 	implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
 	implementation 'com.google.code.gson:gson:2.9.0'

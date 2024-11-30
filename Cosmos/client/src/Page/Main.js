@@ -4,31 +4,41 @@ import '../Style/Main.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function Main() {
+
     const navi = useNavigate();
-    const sliderRef = useRef(null);
+    const socketUrl = process.env.REACT_APP_WEBSOCKET_SRC;
     const ws = useRef(null); // WebSocket 인스턴스
+    const sliderRef = useRef(null);
+    const [autoplaySpeed, setAutoplaySpeed] = useState(17010);
 
-    const [autoplaySpeed, setAutoplaySpeed] = useState(17010); // 첫 슬라이드 기본 지속 시간
-
-    // WebSocket 연결
     useEffect(() => {
-        ws.current = new WebSocket('ws://localhost:8070'); // WebSocket 서버 연결
+        // WebSocket 연결 설정
+        ws.current = new WebSocket(`${socketUrl}`);
+        // WebSocket 서버 URL
+
+        ws.current.onopen = () => {
+            console.log('Main에서 WebSocket 연결됨');
+        };
+
         ws.current.onmessage = (event) => {
             const message = JSON.parse(event.data);
+
+            // WebSocket 메시지로부터 URL 수신 후 네비게이션
             if (message.action === 'navigate' && message.url) {
-                navi(message.url); // URL로 이동
+                console.log('네비게이션 실행 중:', message.url);
+
+                // WebSocket 네비게이션 플래그 설정
+                sessionStorage.setItem('websocket-navigation', 'true');
+                navi(message.url);
             }
         };
 
-        ws.current.onopen = () => {
-            console.log('WebSocket connected');
-        };
         ws.current.onclose = () => {
-            console.log('WebSocket disconnected');
+            console.log('Main에서 WebSocket 연결 종료');
         };
 
         return () => {
-            ws.current.close(); // 컴포넌트 언마운트 시 WebSocket 정리
+            ws.current.close(); // WebSocket 연결 해제
         };
     }, [navi]);
 

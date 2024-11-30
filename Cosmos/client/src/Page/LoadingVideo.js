@@ -25,6 +25,10 @@ function LoadingVideo() {
         arrows: false,
     };
 
+
+
+    
+
     return (
         <div className="louterBox">
             <Slider className="lslider" {...settings}>

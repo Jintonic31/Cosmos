@@ -2,10 +2,15 @@ import React, { useState, useEffect, useRef } from 'react'; // 1-1 React에서 �
 import '../Style/JoinAuction.css'; // 1-2 스타일링을 위한 CSS 파일 가져오기
 
 export default function JoinAuction() {
+
+    const reactUrl = process.env.REACT_APP_MAIN_SRC;
+    // console.log('서버 경로 : ', springUrl);
     const videoRef = useRef(null); // 1-3 비디오 요소의 참조 생성
     const playBtnRef = useRef(null); // 1-4 재생 버튼 요소의 참조 생성
     const [isPlaying, setIsPlaying] = useState(true); // 1-5 비디오 재생 상태를 추적하는 상태
     let mouseTimeout = useRef(null); // 1-6 비활성 시 재생 버튼을 숨기기 위한 타임아웃 참조
+
+
 
     // 기능 1: /joinauction 경로에서 페이지 새로고침 시 홈페이지로 리다이렉션
     useEffect(() => {
@@ -13,8 +18,13 @@ export default function JoinAuction() {
         const isPageReloaded = window.performance?.navigation?.type === 1; // 1-8 페이지가 새로고침되었는지 확인
 
         if (currentPath === '/joinauction' && isPageReloaded) { // 1-9 /joinauction에서 새로고침 시에만 리다이렉션
-            window.location.href = 'http://localhost:3000'; // 1-10 홈페이지로 리다이렉션 수행
+            window.location.href = `${reactUrl}`; // 1-10 홈페이지로 리다이렉션 수행
         }
+
+        // WebSocket 네비게이션 플래그 초기화
+        sessionStorage.removeItem('websocket-navigation');
+
+
     }, []); // 1-11 컴포넌트가 마운트될 때 한 번만 실행
 
     // 기능 2: 마우스 움직임 시 재생 버튼 표시, 2초 동안 비활성 시 숨기기
