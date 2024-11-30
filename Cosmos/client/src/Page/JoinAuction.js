@@ -17,7 +17,7 @@ export default function JoinAuction() {
         }
     }, []); // 1-11 컴포넌트가 마운트될 때 한 번만 실행
 
-    // 기능 2: 마우스 움직임 시 재생 버튼 표시, 3초 동안 비활성 시 숨기기
+    // 기능 2: 마우스 움직임 시 재생 버튼 표시, 2초 동안 비활성 시 숨기기
     useEffect(() => {
         const handleMouseMove = () => { // 2-1 마우스 움직임을 처리하는 함수 정의
             const playBtn = playBtnRef.current; // 2-2 참조된 재생 버튼 가져오기
@@ -25,11 +25,11 @@ export default function JoinAuction() {
                 playBtn.classList.add('show'); // 2-3 버튼에 'show' 클래스 추가 (표시)
             }
             if (mouseTimeout.current) clearTimeout(mouseTimeout.current); // 2-4 기존 타임아웃 제거
-            mouseTimeout.current = setTimeout(() => { // 2-5 3초 후 재생 버튼 숨김 처리
+            mouseTimeout.current = setTimeout(() => { // 2-5 2초 후 재생 버튼 숨김 처리
                 if (playBtn) {
                     playBtn.classList.remove('show'); // 2-6 'show' 클래스 제거 (숨김)
                 }
-            }, 3000);
+            }, 2000);
         };
 
         window.addEventListener('mousemove', handleMouseMove); // 2-7 마우스 움직임 이벤트 리스너 추가

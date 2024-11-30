@@ -1,3 +1,18 @@
+/* 나머지 스타일 */
+html, body, #root, .slick-list, .slick-track {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* 스크롤바를 숨김 */
+    box-sizing: border-box; /* 패딩이나 보더를 포함한 전체 크기 계산 */
+}
+
+* {
+    box-sizing: border-box; /* 모든 요소에 box-sizing: border-box 적용 */
+}
+
+
 .jouterBox {
     display: flex;
     justify-content: center;
