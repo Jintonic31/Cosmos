@@ -1,37 +1,3 @@
-@font-face{
-    font-family: 'Helvetica-BdCn';
-    src: url('./fonts/Helvetica/HelveticaNeueLTPro-BdCn.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face{
-    font-family: 'Helvetica-Th';
-    src: url('./fonts/Helvetica/HelveticaNeueLTPro-Th.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face{
-    font-family: 'Helvetica-Md';
-    src: url('./fonts/Helvetica/HelveticaNeueLTPro-Md.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-
-/* 나머지 스타일 */
-html, body, #root, .slick-list, .slick-track {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* 스크롤바를 숨김 */
-    box-sizing: border-box; /* 패딩이나 보더를 포함한 전체 크기 계산 */
-}
-
-* {
-    box-sizing: border-box; /* 모든 요소에 box-sizing: border-box 적용 */
-}
-
 .jouterBox {
     display: flex;
     justify-content: center;
@@ -39,31 +5,60 @@ html, body, #root, .slick-list, .slick-track {
     width: 100%;
     height: 100%;
     padding: 0;
-    margin:0;
+    margin: 0;
     position: relative;
-    overflow: hidden; /* 슬라이더가 화면을 벗어나지 않도록 설정 */
-    background-color:black;
+    overflow: hidden;
+    background-color: black;
 }
 
-
-.jplayerBox{
+.jplayerBox {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100vh;
-    object-fit: cover;
     position: relative;
 }
-
 
 .jvideoPlayer {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* 비디오가 잘리지 않고 컨테이너에 맞도록 설정 */
-    margin: 0; /* 기본 마진 제거 */
-    padding: 0; /* 기본 패딩 제거 */
-    display: block; /* 블록 요소로 동작하도록 설정 */
+    object-fit: contain;
+    margin: 0;
+    padding: 0;
+    display: block;
 }
 
+.playBtnBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    z-index: 10; /* 비디오 위에 표시 */
+    display: flex;
+    cursor: pointer;
 
+    /* Fade-in/out 기본 설정 */
+    opacity: 0; /* 기본값: 보이지 않음 */
+    transition: opacity 0.5s ease; /* 부드러운 fade 효과 (0.5초) */
+    pointer-events: none; /* 보이지 않을 때 클릭 방지 */
+}
+
+.playBtn {
+    width: 50px;
+    height: 50px;
+}
+
+/* 보이는 상태에 대한 스타일 */
+.playBtnBox.show {
+    opacity: 1; /* 보임 */
+    pointer-events: auto; /* 클릭 가능 */
+}
+
+.playBtn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
