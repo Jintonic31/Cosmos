@@ -9,10 +9,26 @@ function InputMoney() {
   const socketUrl = process.env.REACT_APP_WEBSOCKET_SRC;
   const ws = useRef(null); // WebSocket 인스턴스
   const springUrl = process.env.REACT_APP_SPRING_SRC;
-  // console.log('서버 경로 : ', springUrl);
   const [selectedNumbers, setSelectedNumbers] = useState([0, 0, 0]); // 각 휠의 상태
   const touchStartY = useRef({});
   const accumulatedDelta = useRef({});
+
+  useEffect(() => {
+    // WebSocket 연결 설정
+    ws.current = new WebSocket(`${socketUrl}`);
+
+    ws.current.onopen = () => {
+        console.log('InputMoney에서 WebSocket 연결됨');
+    };
+
+    ws.current.onclose = () => {
+        console.log('InputMoney에서 WebSocket 연결 종료');
+    };
+
+    return () => {
+        ws.current.close(); // 컴포넌트 언마운트 시 WebSocket 정리
+    };
+  }, []);
 
   
   const handleTouchStart = (e, id) => {
@@ -49,7 +65,7 @@ function InputMoney() {
     accumulatedDelta.current[id] = 0;
   };
 
-  const onSubmit = () => {
+  const handleLoadingClick = () => {
     // 현재 선택된 값을 읽기
     const selectedValues = parseInt(selectedNumbers.join(''), 10);
 
@@ -61,11 +77,18 @@ function InputMoney() {
     axios.post(`${springUrl}/api/price/insertmoney`, { price: selectedValues })
       .then((result) => {
         console.log('가격 전송 완료');
-        navi('/loadingvideo'); // 로딩 화면으로 이동
+        navi('/loadingvideo');  // iPad에서 /loadingvideo로 이동
       })
       .catch((error) => {
         console.error('가격 전송 실패:', error);
       });
+
+
+      // iMac에 WebSocket 메시지 전송
+      if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+        const message = JSON.stringify({ action: 'navigate', url: '/loadingauction' });
+        ws.current.send(message);
+    }
   };
 
   // 각 휠에 대한 숫자 목록 생성
@@ -74,53 +97,7 @@ function InputMoney() {
   );
 
 
-  useEffect(() => {
-    // WebSocket 연결 설정
-    ws.current = new WebSocket(`${socketUrl}`);
-
-    ws.current.onopen = () => {
-        console.log('InputMoney에서 WebSocket 연결됨');
-    };
-
-    ws.current.onclose = () => {
-        console.log('InputMoney에서 WebSocket 연결 종료');
-    };
-
-    return () => {
-        ws.current.close(); // 컴포넌트 언마운트 시 WebSocket 정리
-    };
-  }, []);
-
-
-  const handleLoadingClick = () => {
-
-    // 현재 선택된 값을 읽기
-    const selectedValues = parseInt(selectedNumbers.join(''), 10);
-
-    // 콘솔에 값 출력
-    // console.log(`서브밋 될 값 #1 : ${selectedValues}`);
-    //console.log('서브밋 될 값 #2 : ', selectedValues);    
-
-    // DB로 데이터 전송
-    axios.post(`${springUrl}/api/price/insertmoney`, { price: selectedValues })
-      .then((result) => {
-        console.log('가격 전송 완료');
-        navi('/loadingvideo'); // 로딩 화면으로 이동
-      })
-      .catch((error) => {
-        console.error('가격 전송 실패:', error);
-      });
-
-    // iMac: /loadingvideo 이동하도록 WebSocket 메시지 전송
-    if (ws.current && ws.current.readyState === WebSocket.OPEN) {
-      const message = JSON.stringify({ action: 'navigate', url: '/loadingvideo' });
-      ws.current.send(message);
-  }
-  };
-
-
-
-
+  
   return (
     <div className='iouterBox'>
       <img

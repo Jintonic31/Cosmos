@@ -41,7 +41,7 @@ html, body, #root, .slick-list, .slick-track {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     padding: 0;
     margin:0;
     position: relative;
@@ -62,7 +62,7 @@ html, body, #root, .slick-list, .slick-track {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     object-fit: cover;
     position: relative;
 }
@@ -82,7 +82,7 @@ html, body, #root, .slick-list, .slick-track {
     align-items: center;
     width: 100%;
     height: 49%;
-    top:50%;
+    top:53%;
     left:0;
     transform: translateY(-51%); /* 중앙 정렬을 위해 추가 */
     z-index:1;

@@ -1,0 +1,86 @@
+html, body, #root, .slick-list, .slick-track {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* 스크롤바 제거 */
+    box-sizing: border-box;
+}
+
+* {
+    box-sizing: border-box; /* 기본 box-sizing */
+}
+
+.laouterBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.laslider {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.laplayerBox {
+    width: 100%;
+    height: 100%;
+}
+
+.lavideoPlayer {
+    width: 100%;
+    height: 100vh;
+    overflow:hidden;
+    object-fit: cover; /* 왜곡 없이 슬라이드 채움 */
+    display: block;
+}
+
+.laresultBox {
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    height:100vh;
+    overflow:hidden;
+}
+
+.aresultline1, .aresultline2, .aresultline3, .aresultline4, .aresultline5, .aresultline6{
+    flex:1;
+    width:100%;
+    display:flex; /* !important; flexbox 레이아웃 강제 적용 */
+    flex-direction:row; /* !important; flexbox 레이아웃 강제 적용 */
+}
+
+.aresultline1{animation: moveImages 30s linear infinite;}
+.aresultline2{animation: moveImages2 27s linear infinite;}
+.aresultline3{animation: moveImages 24.3s linear infinite;}
+.aresultline4{animation: moveImages2 21.8s linear infinite;}
+.aresultline5{animation: moveImages 19.7s linear infinite;}
+.aresultline6{animation: moveImages2 17.8s linear infinite;}
+
+.aresultline1 img, .aresultline2 img, .aresultline3 img, .aresultline4 img, .aresultline5 img, .aresultline6 img{
+    flex:1;
+    border-radius:100px;
+}
+
+@keyframes moveImages {
+    0% {
+        transform: translateX(100%); /* 이미지를 화면 오른쪽 밖에서 시작 */
+    }
+    100% {
+        transform: translateX(-100%); /* 이미지를 화면 왼쪽 밖으로 이동 */
+    }
+}
+
+@keyframes moveImages2 {
+    0% {
+        transform: translateX(-100%); /* 이미지를 화면 오른쪽 밖에서 시작 */
+    }
+    100% {
+        transform: translateX(100%); /* 이미지를 화면 왼쪽 밖으로 이동 */
+    }
+}

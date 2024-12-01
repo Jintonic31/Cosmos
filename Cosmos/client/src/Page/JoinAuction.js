@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'; // 1-1 React에서 필요한 hooks 가져오기
+import { useNavigate } from 'react-router-dom'
 import '../Style/JoinAuction.css'; // 1-2 스타일링을 위한 CSS 파일 가져오기
 
 export default function JoinAuction() {
 
+    const navi = useNavigate();
     const reactUrl = process.env.REACT_APP_MAIN_SRC;
-    // console.log('서버 경로 : ', springUrl);
+    const socketUrl = process.env.REACT_APP_WEBSOCKET_SRC;
+    const ws = useRef(null); // WebSocket 인스턴스
     const videoRef = useRef(null); // 1-3 비디오 요소의 참조 생성
     const playBtnRef = useRef(null); // 1-4 재생 버튼 요소의 참조 생성
     const [isPlaying, setIsPlaying] = useState(true); // 1-5 비디오 재생 상태를 추적하는 상태
@@ -25,7 +28,34 @@ export default function JoinAuction() {
         sessionStorage.removeItem('websocket-navigation');
 
 
-    }, []); // 1-11 컴포넌트가 마운트될 때 한 번만 실행
+    }, [reactUrl]); // 1-11 컴포넌트가 마운트될 때 한 번만 실행
+
+
+    // WebSocket 설정
+    useEffect(() => {
+        ws.current = new WebSocket(`${socketUrl}`);
+
+        ws.current.onopen = () => {
+            console.log('JoinAuction에서 WebSocket 연결됨');
+        };
+
+        ws.current.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+            if (message.action === 'navigate' && message.url === '/loadingauction') {
+                navi(message.url); // WebSocket 메시지를 통해 /loadingauction으로 이동
+            }
+        };
+
+        ws.current.onclose = () => {
+            console.log('JoinAuction에서 WebSocket 연결 종료');
+        };
+
+        return () => {
+            ws.current.close(); // 컴포넌트 언마운트 시 WebSocket 연결 해제
+        };
+    }, [navi]);
+
+
 
     // 기능 2: 마우스 움직임 시 재생 버튼 표시, 2초 동안 비활성 시 숨기기
     useEffect(() => {
