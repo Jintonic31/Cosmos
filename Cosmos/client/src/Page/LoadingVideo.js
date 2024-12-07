@@ -9,6 +9,74 @@ function LoadingVideo() {
     const socketUrl = process.env.REACT_APP_WEBSOCKET_SRC;
     const ws = useRef(null); // WebSocket 인스턴스
     const [autoplaySpeed, setAutoplaySpeed] = useState(6005);
+    const inactivityTimeoutRef = useRef(null); // 비활성 타이머 참조
+    const returnTimeoutRef = useRef(null); // 이동 타이머 참조
+    const [showReturnMessage, setShowReturnMessage] = useState(false); // 텍스트 표시 상태
+    const [userActive, setUserActive] = useState(false); // 사용자가 입력했는지 상태 저장
+
+
+    // 비활성 타이머 리셋 함수
+    const resetInactivityTimer = () => {
+        if (inactivityTimeoutRef.current) {
+            clearTimeout(inactivityTimeoutRef.current); // 기존 타이머 제거
+        }
+  
+        if (returnTimeoutRef.current) {
+          clearTimeout(returnTimeoutRef.current); // 이동 타이머 제거
+        }
+  
+        setShowReturnMessage(false); // 텍스트 숨기기
+        setUserActive(true); // 사용자가 활성화된 상태로 설정
+  
+        inactivityTimeoutRef.current = setTimeout(() => {
+          setUserActive(false); // 입력이 없음을 상태에 반영
+          setShowReturnMessage(true); // 10초 후 텍스트 표시
+  
+          // 3초 후 이동
+          returnTimeoutRef.current = setTimeout(() => {
+              
+              // 조건 1
+              if (!userActive) {
+                  navi('/substart'); // /substart로 이동
+              }
+  
+              // 조건 2: WebSocket을 통해 다른 브라우저를 '/'로 이동
+                if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+                    const message = JSON.stringify({ action: 'navigate', url: '/' });
+                    ws.current.send(message);
+                }
+  
+          }, 3000);
+        }, 10000);
+  
+    };
+
+    // 사용자 입력 이벤트를 감지하여 타이머 리셋
+  useEffect(() => {
+    const handleUserActivity = () => resetInactivityTimer();
+
+    // 마우스 클릭 및 키보드 입력 이벤트 리스너 등록
+    window.addEventListener('click', handleUserActivity);
+    window.addEventListener('keydown', handleUserActivity);
+
+    // 초기 타이머 설정
+    resetInactivityTimer();
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 및 타이머 제거
+    return () => {
+      window.removeEventListener('click', handleUserActivity);
+      window.removeEventListener('keydown', handleUserActivity);
+      if (inactivityTimeoutRef.current) {
+          clearTimeout(inactivityTimeoutRef.current);
+      }
+      if (returnTimeoutRef.current) {
+          clearTimeout(returnTimeoutRef.current);
+      }
+    };
+  }, [navi]);
+
+
+
 
     // 기능 1: /loadingvideo 경로에서 페이지 새로고침 시 홈페이지로 리다이렉션
     useEffect(() => {
@@ -94,7 +162,14 @@ function LoadingVideo() {
 
                 {/* 성공 이미지 슬라이드 */}
                 <div className="lsuccessBox">
+                    <div
+                        className={`lreturnMessage ${showReturnMessage ? 'show' : ''}`}
+                    >
+                        3초 뒤 처음 화면으로 돌아갑니다.
+                    </div>
+
                     <img src={`${process.env.REACT_APP_IMG_SRC}/done.png`} alt="Success" />
+                    
                     <div className="lgohomeBox">
                         <div className="lgohomeBtn" onClick={handleSubstartClick} >
                             <img src={`${process.env.REACT_APP_IMG_SRC}/gohomeBtn.png`} alt="Go Home" />
