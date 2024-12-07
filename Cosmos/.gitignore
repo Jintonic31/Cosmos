@@ -39,3 +39,13 @@ out/
 
 ### Ignore application.properties ###
 application.properties
+client/.env
+
+
+## big size file ##
+Cosmos/Cosmos/src/main/resources/static/images/2_video.mp4
+Cosmos/src/main/resources/static/images/2_video.mp4
+src/main/resources/static/images/2_video.mp4
+
+
+

@@ -2,3 +2,5 @@
 *.bat text eol=crlf
 *.jar binary
 Cosmos/src/main/resources/static/videos/2_video.mp4 filter=lfs diff=lfs merge=lfs -text
+Cosmos/src/main/resources/static/images/2_video.mp4 filter=lfs diff=lfs merge=lfs -text
+src/main/resources/static/images/2_video.mp4 filter=lfs diff=lfs merge=lfs -text

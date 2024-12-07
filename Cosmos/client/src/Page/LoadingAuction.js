@@ -104,7 +104,7 @@ function LoadingAuction() {
                         autoPlay
                         muted
                     >
-                        <source src={`${process.env.REACT_APP_VIDEO_SRC}/3_video.mp4`} type="video/mp4" />
+                        <source src={`${process.env.REACT_APP_IMG_SRC}/3_video.mp4`} type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
                 </div>

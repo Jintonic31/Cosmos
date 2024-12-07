@@ -114,7 +114,7 @@ export default function Main() {
                         muted
                         onLoadedData={handleVideoLoad} // 비디오 로드 처리
                     >
-                        <source src={`${process.env.REACT_APP_VIDEO_SRC}/1_video.mp4`} type="video/mp4" />
+                        <source src={`${process.env.REACT_APP_IMG_SRC}/1_video.mp4`} type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
                 </div>

@@ -101,7 +101,7 @@ export default function JoinAuction() {
                     muted // 4-7 비디오 음소거 설정
                 >
                     <source
-                        src={`${process.env.REACT_APP_VIDEO_SRC}/2_video.mp4`} // 4-8 비디오 소스 URL
+                        src={`${process.env.REACT_APP_IMG_SRC}/2_video.mp4`} // 4-8 비디오 소스 URL
                         type="video/mp4" // 4-9 비디오 파일 타입
                     />
                     이 브라우저는 안됨~ {/* 4-10 지원되지 않는 브라우저를 위한 대체 텍스트 */}

@@ -155,7 +155,7 @@ function LoadingVideo() {
                         autoPlay
                         muted
                     >
-                        <source src={`${process.env.REACT_APP_VIDEO_SRC}/3_video.mp4`} type="video/mp4" />
+                        <source src={`${process.env.REACT_APP_IMG_SRC}/3_video.mp4`} type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -169,7 +169,7 @@ function LoadingVideo() {
                     </div>
 
                     <img src={`${process.env.REACT_APP_IMG_SRC}/done.png`} alt="Success" />
-                    
+
                     <div className="lgohomeBox">
                         <div className="lgohomeBtn" onClick={handleSubstartClick} >
                             <img src={`${process.env.REACT_APP_IMG_SRC}/gohomeBtn.png`} alt="Go Home" />
