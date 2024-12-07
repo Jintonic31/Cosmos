@@ -13,7 +13,7 @@ function LoadingAuction() {
     const [autoplaySpeed, setAutoplaySpeed] = useState(6005);
 
     // #1 라인 이미지
-    const aresultline1 = [
+    const imgArr1 = [
         process.env.REACT_APP_IMG_SRC +'1_result1.png',
         process.env.REACT_APP_IMG_SRC +'1_result2.png',
         process.env.REACT_APP_IMG_SRC +'1_result3.png',
@@ -23,8 +23,10 @@ function LoadingAuction() {
         process.env.REACT_APP_IMG_SRC +'1_result7.png',
         process.env.REACT_APP_IMG_SRC +'1_result8.png',
         process.env.REACT_APP_IMG_SRC +'1_result9.png',
-        process.env.REACT_APP_IMG_SRC +'1_result10.png'
-    ]
+    ];
+
+    // 무한 스크롤을 위한 이미지 복제
+    const duplicatedImages = [...imgArr1, ...imgArr1, ...imgArr1];
 
 
     // 기능 1: /loadingauction 경로에서 페이지 새로고침 시 홈페이지로 리다이렉션
@@ -90,16 +92,6 @@ function LoadingAuction() {
         arrows: false,
     };
 
-    // 2번째 페이지 슬라이더
-    const settings2 = {
-        autoplay: true,
-        autoplaySpeed: autoplaySpeed,
-        infinite: true,
-        beforeChange: handleBeforeChange,
-        pauseOnHover: false,
-        arrows: false,
-    };
-
 
 
     return (
@@ -121,43 +113,43 @@ function LoadingAuction() {
                 <div className="laresultBox">
                     <div className='aresultline1'>
                         {
-                            aresultline1.map((img, idx) => (
+                            duplicatedImages.map((img, idx) => (
                             <img src={img} alt='' />
                             ))
                         }
                     </div>
                     <div className='aresultline2'>
                         {
-                            aresultline1.map((img, idx) => (
+                            duplicatedImages.map((img, idx) => (
                             <img src={img} alt='' />
                             ))
                         }
                     </div>
                     <div className='aresultline3'>
                         {
-                            aresultline1.map((img, idx) => (
+                            duplicatedImages.map((img, idx) => (
                             <img src={img} alt='' />
                             ))
                         }
                     </div>
                     <div className='aresultline4'>
                         {
-                            aresultline1.map((img, idx) => (
+                            duplicatedImages.map((img, idx) => (
                             <img src={img} alt='' />
                             ))
                         }
                     </div>
                     <div className='aresultline5'>
                         {
-                            aresultline1.map((img, idx) => (
+                            duplicatedImages.map((img, idx) => (
                             <img src={img} alt='' />
                             ))
                         }
                     </div>
                     <div className='aresultline6'>
                         {
-                            aresultline1.map((img, idx) => (
-                            <img src={img} alt='' />
+                            duplicatedImages.map((img, idx) => (
+                                <img key={idx} src={img} alt='' />
                             ))
                         }
                     </div>
