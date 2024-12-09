@@ -78,6 +78,15 @@ html, body, #root, .slick-list, .slick-track {
 
 }
 
+.hiddenBtn{
+    position:absolute;
+    width:200px;
+    height:200px;
+    top:0px;
+    left:0px;
+    z-index:1;
+}
+
 
 .timerBox img{
     width:100%;

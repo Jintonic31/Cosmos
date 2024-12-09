@@ -52,13 +52,14 @@ html, body, #root, .slick-list, .slick-track {
     overflow: hidden; /* 넘치는 숫자들을 잘라냄 */
     position: relative;
     z-index: 1; /* 배경보다 위에 표시 */
+    margin-top:30px;
   }
 
-#scrollcontainer0{
-    margin-left:290px;
+  #scrollcontainer0{
+    margin-left:275px;
 }
 #scrollcontainer1{
-    margin:0 30px;   
+    margin:30px 13px 0 15px;
 }
   
   .scroll-wheel {
@@ -74,7 +75,7 @@ html, body, #root, .slick-list, .slick-track {
   
   .number-item {
     font-family: Orbitron-Regular;
-    font-size:150px;
+    font-size:140px;
     color: #4a4a4a;
     height: 100%;
     text-align: center;

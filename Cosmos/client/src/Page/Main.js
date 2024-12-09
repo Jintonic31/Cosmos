@@ -117,11 +117,16 @@ export default function Main() {
                         <source src={`${process.env.REACT_APP_IMG_SRC}/1_video.mp4`} type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
+
+                    <div className='hiddenBtn' onClick={() => navi('/substart')}></div>
                 </div>
 
                 {/* 두 번째 슬라이드 (타이머) */}
                 <div className="timerBox">
                     <img src={`${process.env.REACT_APP_IMG_SRC}/timerimg.png`} alt="Timer" />
+                    
+                    <div className='hiddenBtn' onClick={() => navi('/substart')}></div>
+                    
                     <div className="timeWrap">
                         <div className="time">{timeLeft.split(':')[0]}</div>
                         <div className="dotdot">:</div>
