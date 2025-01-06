@@ -64,7 +64,7 @@ function SubStart() {
         <div className='outerBox'>
             <Slider className="slider" {...settings} ref={sliderRef}>
                 <div className="substartBox">
-                    <img src={`${process.env.REACT_APP_IMG_SRC}/subtstart.png`} alt="서브스타트페이지" />
+                    <img src={`${process.env.REACT_APP_IMG_SRC}/substart.png`} alt="서브스타트페이지" />
 
                     <div className='startBtnWrap'>
                         <div className='startBtn' onClick={handleStartClick}>
@@ -80,3 +80,4 @@ function SubStart() {
 }
 
 export default SubStart
+

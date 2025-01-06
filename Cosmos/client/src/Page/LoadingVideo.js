@@ -1,5 +1,6 @@
 import React, {  useState, useEffect, useRef  } from 'react';
 import Slider from 'react-slick';
+import axios from 'axios'
 import '../Style/LoadingVideo.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,12 +8,37 @@ function LoadingVideo() {
     const navi = useNavigate();
     const reactUrl = `${process.env.REACT_APP_MAIN_SRC}substart`;
     const socketUrl = process.env.REACT_APP_WEBSOCKET_SRC;
+    const springUrl = process.env.REACT_APP_SPRING_SRC;
     const ws = useRef(null); // WebSocket 인스턴스
     const [autoplaySpeed, setAutoplaySpeed] = useState(6005);
     const inactivityTimeoutRef = useRef(null); // 비활성 타이머 참조
     const returnTimeoutRef = useRef(null); // 이동 타이머 참조
     const [showReturnMessage, setShowReturnMessage] = useState(false); // 텍스트 표시 상태
     const [userActive, setUserActive] = useState(false); // 사용자가 입력했는지 상태 저장
+    const [oneList, setOneList] = useState([]);
+
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const result = await axios.get(`${springUrl}/api/price/getonelist`);
+                
+                setOneList(result.data);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        fetchData();
+    }, [springUrl]);
+
+
+    function addNineHours(utcDate) {
+        const date = new Date(utcDate); // UTC 시간을 Date 객체로 변환
+        date.setHours(date.getHours() + 9); // 9시간 추가
+        return date; // 변환된 Date 객체 반환
+    }
+
+
 
 
     // 비활성 타이머 리셋 함수
@@ -47,7 +73,7 @@ function LoadingVideo() {
                 }
   
           }, 3000);
-        }, 10000);
+        }, 13000);
   
     };
 
@@ -168,7 +194,68 @@ function LoadingVideo() {
                         3초 뒤 처음 화면으로 돌아갑니다.
                     </div>
 
-                    <img src={`${process.env.REACT_APP_IMG_SRC}/done.png`} alt="Success" />
+                    <img src={`${process.env.REACT_APP_IMG_SRC}/done2.png`} alt="Success" />
+
+                    <div className='lsuccessResultBox'>
+                        {
+                            (oneList) ? (
+                                oneList
+                                    .map((list, idx) => {
+                                        return (
+                                            <div className='linfoGuest'>
+
+                                                <div className='linfodate'>
+                                                    {list.indate.substring(0, 4)}/{list.indate.substring(5, 7)}/{list.indate.substring(8, 10)}
+                                                </div>
+
+                                                <div className='linfoguestnum'>
+                                                    GUEST&nbsp;&nbsp;{list.seq}
+                                                </div>
+
+                                                
+                                            </div>
+                                        )
+                                    })
+                            ) : (null)
+                        }
+
+                        {
+                            (oneList) ? (
+                                oneList
+                                    .map((list, idx) => {
+
+                                        // 9시간 더한 시간을 가져오기
+                                        const adjustedDate = addNineHours(list.indate); // Date 객체
+                                        console.log('9시간 더한 시간 : ' + adjustedDate);
+
+                                        // 24시간 형식으로 시간만 가져오기
+                                        const formattedTime = adjustedDate.toLocaleTimeString('ko-KR', {
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                            hourCycle: 'h23' // 24시간 형식
+                                        });
+
+
+                                        return (
+                                            <div className='linfoPrice'>
+                                                
+                                                <div className='linfoTime'>
+                                                    KOR&nbsp;{formattedTime}
+                                                </div>
+
+                                                <div className='linfooneprice'>
+                                                    $&nbsp;{list.price},000
+                                                </div>
+
+                                                
+                                            </div>
+                                        )
+                                    })
+                            ) : (null)
+                        }
+
+
+                    </div>
 
                     <div className="lgohomeBox">
                         <div className="lgohomeBtn" onClick={handleSubstartClick} >
@@ -182,3 +269,4 @@ function LoadingVideo() {
 }
 
 export default LoadingVideo;
+

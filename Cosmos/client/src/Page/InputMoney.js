@@ -9,9 +9,14 @@ function InputMoney() {
   const socketUrl = process.env.REACT_APP_WEBSOCKET_SRC;
   const ws = useRef(null); // WebSocket 인스턴스
   const springUrl = process.env.REACT_APP_SPRING_SRC;
+  const [showReturnMessage, setShowReturnMessage] = useState(false); // 텍스트 표시 상태
+  const inactivityTimeoutRef = useRef(null); // 비활성 타이머 참조
+  const returnTimeoutRef = useRef(null); // 이동 타이머 참조
+  const [userActive, setUserActive] = useState(false); // 사용자 활동 상태
   const [selectedNumbers, setSelectedNumbers] = useState([0, 0, 0]); // 각 휠의 상태
   const touchStartY = useRef({});
   const accumulatedDelta = useRef({});
+
 
   useEffect(() => {
     // WebSocket 연결 설정
@@ -33,6 +38,7 @@ function InputMoney() {
   
   const handleTouchStart = (e, id) => {
     touchStartY.current[id] = e.touches[0].clientY;
+    resetInactivityTimer(); // 스와이프 시작 시 타이머 리셋
   };
 
   const handleTouchMove = (e, id) => {
@@ -63,7 +69,71 @@ function InputMoney() {
   const handleTouchEnd = (id) => {
     touchStartY.current[id] = null;
     accumulatedDelta.current[id] = 0;
+    resetInactivityTimer(); // 스와이프 종료 시 타이머 리셋
   };
+
+
+  // 비활성 타이머 리셋 함수
+  const resetInactivityTimer = () => {
+    if (inactivityTimeoutRef.current) {
+        clearTimeout(inactivityTimeoutRef.current); // 기존 타이머 제거
+    }
+
+    if (returnTimeoutRef.current) {
+      clearTimeout(returnTimeoutRef.current); // 이동 타이머 제거
+    }
+
+    setShowReturnMessage(false); // 텍스트 숨기기
+    setUserActive(true); // 사용자가 활성화된 상태로 설정
+
+    inactivityTimeoutRef.current = setTimeout(() => {
+      setUserActive(false); // 입력이 없음을 상태에 반영
+      setShowReturnMessage(true); // 10초 후 텍스트 표시
+
+      // 3초 후 이동
+      returnTimeoutRef.current = setTimeout(() => {
+          
+          // 조건 1
+          if (!userActive) {
+              navi('/substart'); // /substart로 이동
+          }
+
+          //  조건 2: WebSocket을 통해 다른 브라우저를 '/'로 이동
+          if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+              const message = JSON.stringify({ action: 'navigate', url: '/' });
+              ws.current.send(message);
+          }
+
+      }, 3000);
+    }, 10000);
+
+  };
+
+// 사용자 입력 이벤트를 감지하여 타이머 리셋
+useEffect(() => {
+  const handleUserActivity = () => resetInactivityTimer();
+
+  // 마우스 클릭 및 키보드 입력 이벤트 리스너 등록
+  window.addEventListener('click', handleUserActivity);
+  window.addEventListener('keydown', handleUserActivity);
+
+  // 초기 타이머 설정
+  resetInactivityTimer();
+
+  // 컴포넌트 언마운트 시 이벤트 리스너 및 타이머 제거
+  return () => {
+    window.removeEventListener('click', handleUserActivity);
+    window.removeEventListener('keydown', handleUserActivity);
+    if (inactivityTimeoutRef.current) {
+        clearTimeout(inactivityTimeoutRef.current);
+    }
+    if (returnTimeoutRef.current) {
+        clearTimeout(returnTimeoutRef.current);
+    }
+};
+}, [navi]);
+
+
 
   const handleLoadingClick = () => {
     // 현재 선택된 값을 읽기
@@ -100,11 +170,37 @@ function InputMoney() {
   
   return (
     <div className='iouterBox'>
-      <img
+      {/* <img
         src={`${process.env.REACT_APP_IMG_SRC}/scrollbackground.png`}
         alt='scrollimg'
         className='scrollbackground'
+      /> */}
+
+      <div
+          className={`ireturnMessage ${showReturnMessage ? 'show' : ''}`}
+      >
+          3초 뒤 처음 화면으로 돌아갑니다.
+      </div>
+
+
+      <div className='nownumber'>
+        (BIDDING PRICE)
+      </div>
+      <img
+        src={`${process.env.REACT_APP_IMG_SRC}/redarrow.png`}
+        alt='redarrowimg'
+        className='redarrowimg'
       />
+
+
+      <div className='igohomeBtnBox' onClick={() => navi('/substart')}>
+        ● HOME
+      </div>
+
+
+
+	<div className='igohomegraybox'></div>
+
 
       {numberLists.map((numberList, index) => (
         <div
@@ -128,10 +224,30 @@ function InputMoney() {
         </div>
       ))}
 
+      <div
+      className='scroll-wheel-container2'
+      id='scroll-wheel-container0'>
+        ,
+      </div>
+      <div className='scroll-wheel-container2' id='scroll-wheel-container1'>
+        0
+      </div>
+      <div className='scroll-wheel-container2' id='scroll-wheel-container2'>
+        0
+      </div>
+      <div className='scroll-wheel-container2' id='scroll-wheel-container3'>
+        0
+      </div>
+
 
       <div className='submitBtnWrap'>
-        <div className='submitBtn'  onClick={handleLoadingClick}></div>
+        <img src={`${process.env.REACT_APP_IMG_SRC}/submitbtn.png`} alt='submitBtn' className='submitBtn' onClick={handleLoadingClick}/>
+        <div className='submitWord'  onClick={handleLoadingClick}>SUBMIT</div>
       </div>
+
+
+
+
 
 
     </div>
@@ -139,3 +255,4 @@ function InputMoney() {
 }
 
 export default InputMoney;
+

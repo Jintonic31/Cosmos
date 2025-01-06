@@ -15,8 +15,20 @@
     font-style: normal;
 }
 @font-face{
+    font-family: 'Helvetica-Roman';
+    src: url('./fonts/Helvetica/HelveticaNeueLTPro-Roman.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
     font-family: 'Helvetica-Md';
     src: url('./fonts/Helvetica/HelveticaNeueLTPro-Md.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family: 'Humane';
+    src: url('./fonts/Humane/Humane-Regular.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
@@ -67,6 +79,10 @@ html, body, #root, .slick-list, .slick-track {
     position: relative;
 }
 
+.timerBox{
+    background-color:#1D1D1D;
+}
+
 
 .videoPlayer {
     width: 100%;
@@ -87,13 +103,65 @@ html, body, #root, .slick-list, .slick-track {
     z-index:1;
 }
 
-
-.timerBox img{
+.alterimg{
     width:100%;
     height:100%;
     position:relative;
     z-index:0;
+    background-color:#1D1D1D;
 }
+
+.timetitle{
+    width:100%;
+    z-index:1;
+    display:flex;
+    font-family: Helvetica-Md;
+    font-size:40px;
+    margin-top:60px;
+    color:white;
+}
+
+#daytitle{
+    width:173px;
+    height:58px;
+    margin-left:15px;
+    text-align:center;
+    line-height:58px;
+}
+
+#hourtitle{
+    width:173px;
+    height:58px;
+    margin-left:420px;
+    text-align:center;
+    line-height:58px;
+}
+
+#mintitle{
+    width:173px;
+    height:58px;
+    margin-left:350px;
+    text-align:center;
+    line-height:58px;
+}
+
+#sectitle{
+    width:173px;
+    height:58px;
+    margin-left:350px;
+    margin-right:60px;
+    text-align:center;
+    line-height:58px;
+}
+
+
+
+/* .timerBox img{
+    width:100%;
+    height:100%;
+    position:relative;
+    z-index:0;
+} */
 
 .timeWrap{
     position: absolute;
@@ -104,37 +172,84 @@ html, body, #root, .slick-list, .slick-track {
     height: 50%;
     top:50%;
     left:0;
-    transform: translateY(-65%); /* 중앙 정렬을 위해 추가 */
+    transform: translateY(-50%); /* 중앙 정렬을 위해 추가 */
     z-index:1;
-    /* border:3px solid magenta; */
-    /* gap: 10px; time 요소 간격 */
+    gap: 10px; /* 요소 간 고정 간격 */
 }
 
 .time{
-    font-family: Helvetica-BdCn;
-    font-size: 180px;
+
+    color: #FFF;
+    text-align: center;
+    font-family: Humane;
+    font-size: 764.917px;
+    font-style: normal;
     font-weight: 700;
+    line-height: 354.52px; /* 46.347% */
+    letter-spacing:8px;
+    margin:0 30px;
+    width:306px;
+
+    /* font-family: Humane;
+    font-size: 700px;
+    font-weight: 390;
     line-height: 180px;
     text-align: center;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     color:white;
-    letter-spacing:1px;
-    /* border:2px solid yellowgreen; */
+    letter-spacing:1px; */
 }
 .dotdot{
-    font-family: Helvetica-BdCn;
-    font-size: 105px;
+
+
+    color: #FFF;
+    text-align: center;
+    font-family: Humane;
+    font-size: 764.917px;
+    font-style: normal;
     font-weight: 700;
+    line-height: 354.52px; /* 46.347% */
+    letter-spacing:8px;
+
+
+
+    /* font-family: Humane;
+    font-size: 390px;
+    font-weight: 390;
     line-height: 105px;
     text-align: center;
     margin:0 30px 0 30px;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
-    color:white;
+    color:white; */
 }
 
 .goMainWrap{
+    position: absolute;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    width: 100%;
+    bottom:0px;
+    left:0;
+    z-index:1;
+}
+
+.textWrap{
+    color: var(--Whie, #FFF);
+    text-align: center;
+    font-family: Helvetica-Roman;
+    font-size: 25.219px;
+    font-style: normal;
+    letter-spacing:1px;
+    font-weight: 500;
+    line-height: 120%; /* 30.263px */
+    text-transform: uppercase;
+    margin-bottom:60px;
+}
+
+/* .goMainWrap{
     position: absolute;
     display: flex;
     justify-content:center;
@@ -144,12 +259,12 @@ html, body, #root, .slick-list, .slick-track {
     bottom:0px;
     left:0;
     z-index:1;
-    /* gap: 10px; time 요소 간격 */
 }
 .goMainBtn{
     width:31%;
     height: 100%;
-}
+} */
+
 
 
 

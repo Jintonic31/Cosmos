@@ -15,65 +15,66 @@ html, body, #root, .slick-list, .slick-track {
 
 .jouterBox {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content:center;
+    align-items: start;
     width: 100%;
     height: 100%;
     padding: 0;
-    margin: 0;
+    margin:0;
     position: relative;
     overflow: hidden;
     background-color: black;
+}
+
+.joinBackimg{
+    position:absolute;
+    z-index:0;
+    width:100%;
+    height:100%;
+}
+
+.rectangleimg1{
+    position:absolute;
+    top:10px;
+    left:15px;
+    width:602px;
+    height:344px;
+    z-index:3;
+}
+
+.rectangleimg2{
+    position:absolute;
+    top:10px;
+    left:658px;
+    width:602px;
+    height:344px;
+    z-index:3;
+}
+
+.rectangleimg3{
+    position:absolute;
+    top:10px;
+    left:1300px;
+    width:605px;
+    height:344px;
+    z-index:3;
 }
 
 .jplayerBox {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100vh;
+    width:100%;
+    margin: 15px 0 0 0;
+    gap:10px;
     position: relative;
+    z-index:1;
 }
 
 .jvideoPlayer {
-    width: 100%;
-    height: 100%;
+    flex:1;
     object-fit: contain;
-    margin: 0;
-    padding: 0;
-    display: block;
+    width:598px;
+    height:336px;
 }
 
-.playBtnBox {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    justify-content: center;
-    align-items: center;
-    z-index: 10; /* 비디오 위에 표시 */
-    display: flex;
-    cursor: pointer;
-
-    /* Fade-in/out 기본 설정 */
-    opacity: 0; /* 기본값: 보이지 않음 */
-    transition: opacity 0.5s ease; /* 부드러운 fade 효과 (0.5초) */
-    pointer-events: none; /* 보이지 않을 때 클릭 방지 */
-}
-
-.playBtn {
-    width: 50px;
-    height: 50px;
-}
-
-/* 보이는 상태에 대한 스타일 */
-.playBtnBox.show {
-    opacity: 1; /* 보임 */
-    pointer-events: auto; /* 클릭 가능 */
-}
-
-.playBtn img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}

@@ -84,14 +84,14 @@ html, body, #root, .slick-list, .slick-track {
     height: 49%;
     top:53%;
     left:0;
-    transform: translateY(-51%); /* 중앙 정렬을 위해 추가 */
+    transform: translateY(-40%); /* 중앙 정렬을 위해 추가 */
     z-index:1;
     /* border:3px solid magenta; */
     /* gap: 10px; time 요소 간격 */
 }
 .startBtn{
-    width:31%;
-    height: 75%;
+    width:35%;
+    height: 70%;
     border-radius:50%;
 }
 
@@ -144,4 +144,5 @@ html, body, #root, .slick-list, .slick-track {
     text-decoration-skip-ink: none;
     color:white;
 }
+
 

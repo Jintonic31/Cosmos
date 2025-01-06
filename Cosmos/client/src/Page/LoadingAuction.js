@@ -1,5 +1,6 @@
 import React, {  useState, useEffect, useRef  } from 'react';
 import Slider from 'react-slick';
+import axios from 'axios'
 import '../Style/LoadingAuction.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,24 +10,57 @@ function LoadingAuction() {
     const navi = useNavigate();
     const reactUrl = process.env.REACT_APP_MAIN_SRC;
     const socketUrl = process.env.REACT_APP_WEBSOCKET_SRC;
+    const springUrl = process.env.REACT_APP_SPRING_SRC;
     const ws = useRef(null); // WebSocket 인스턴스
     const [autoplaySpeed, setAutoplaySpeed] = useState(6005);
+    const [priceList, setPriceList] = useState([]);
 
-    // #1 라인 이미지
-    const imgArr1 = [
-        process.env.REACT_APP_IMG_SRC +'1_result1.png',
-        process.env.REACT_APP_IMG_SRC +'1_result2.png',
-        process.env.REACT_APP_IMG_SRC +'1_result3.png',
-        process.env.REACT_APP_IMG_SRC +'1_result4.png',
-        process.env.REACT_APP_IMG_SRC +'1_result5.png',
-        process.env.REACT_APP_IMG_SRC +'1_result6.png',
-        process.env.REACT_APP_IMG_SRC +'1_result7.png',
-        process.env.REACT_APP_IMG_SRC +'1_result8.png',
-        process.env.REACT_APP_IMG_SRC +'1_result9.png',
-    ];
 
-    // 무한 스크롤을 위한 이미지 복제
-    const duplicatedImages = [...imgArr1, ...imgArr1, ...imgArr1];
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const result = await axios.get(`${springUrl}/api/price/getpricelist`);
+                const data = result.data;
+
+                // 데이터가 40개 미만인 경우 대체 데이터 추가
+                if (data.length < 48) {
+                    const fillerCount = 48 - data.length;
+                    const fillerData = Array.from({ length: fillerCount }, () => ({
+                        indate: "?#-$%-;@ ??:&*", // 수정: 대체 텍스트 정의
+                        // indate: "?#/ $%/ ;@ ??:&*",
+                        seq: "---",
+                        price: "000",
+                    }));
+                    setPriceList([...data, ...fillerData]);
+                } else {
+                    setPriceList(data);
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        fetchData();
+    }, [springUrl]);
+
+
+
+    function addNineHours(utcDate) {
+        const date = new Date(utcDate); // UTC 시간을 Date 객체로 변환
+        date.setHours(date.getHours() + 9); // 9시간 추가
+        return date; // 변환된 Date 객체 반환
+    }
+
+    
+
+    // 데이터를 8개씩 그룹화하여 6줄 생성
+    const groupedData = React.useMemo(() => {
+        const extendedData = priceList.concat(priceList); // 데이터를 복제하여 자연스러운 루프 구현
+        return Array.from({ length: 6 }, (_, idx) =>
+            extendedData.slice(idx * 8, (idx + 1) * 8) // 각 라인의 데이터 그룹화
+        );
+    }, [priceList]); // priceList가 변경될 때마다 groupedData를 재계산
+
 
 
     // 기능 1: /loadingauction 경로에서 페이지 새로고침 시 홈페이지로 리다이렉션
@@ -93,7 +127,6 @@ function LoadingAuction() {
     };
 
 
-
     return (
         <div className="laouterBox">
             <Slider className="laslider" {...settings1}>
@@ -109,50 +142,67 @@ function LoadingAuction() {
                     </video>
                 </div>
 
-                {/* 경매 결과 출력 슬라이드 */}
+                {/* 두 번째 슬라이드: 6줄의 aresultline */}
                 <div className="laresultBox">
-                    <div className='aresultline1'>
-                        {
-                            duplicatedImages.map((img, idx) => (
-                            <img src={img} alt='' />
-                            ))
-                        }
-                    </div>
-                    <div className='aresultline2'>
-                        {
-                            duplicatedImages.map((img, idx) => (
-                            <img src={img} alt='' />
-                            ))
-                        }
-                    </div>
-                    <div className='aresultline3'>
-                        {
-                            duplicatedImages.map((img, idx) => (
-                            <img src={img} alt='' />
-                            ))
-                        }
-                    </div>
-                    <div className='aresultline4'>
-                        {
-                            duplicatedImages.map((img, idx) => (
-                            <img src={img} alt='' />
-                            ))
-                        }
-                    </div>
-                    <div className='aresultline5'>
-                        {
-                            duplicatedImages.map((img, idx) => (
-                            <img src={img} alt='' />
-                            ))
-                        }
-                    </div>
-                    <div className='aresultline6'>
-                        {
-                            duplicatedImages.map((img, idx) => (
-                                <img key={idx} src={img} alt='' />
-                            ))
-                        }
-                    </div>
+                    {groupedData.map((group, lineIdx) => (
+                        <div className={`aresultline${lineIdx + 1}`} key={lineIdx}>
+                            {group.map((list, idx) => {
+                                // 추가: 인덱스 계산에 따른 스타일 설정
+                                const backgroundStyles = [
+                                    { backgroundColor: "#1B1B1B", color: "#FFFFFF" },
+                                    { backgroundColor: "#FF0000", color: "#FFFFFF" },
+                                    { backgroundColor: "#FFFFFF", color: "#FF0000" },
+                                    { backgroundColor: "#BFBFBF", color: "#FF0000" },
+                                ];
+                                const style =
+                                    backgroundStyles[(lineIdx * 8 + idx) % 4]; // 동적 스타일
+
+
+
+                                // 날짜 유효성 검사
+                                let formattedTime = "??:&*";
+                                if (!isNaN(Date.parse(list.indate))) {
+                                    const adjustedDate = addNineHours(list.indate);
+                                    formattedTime = adjustedDate.toLocaleTimeString('ko-KR', {
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                        hourCycle: 'h23', // 24시간 형식
+                                    });
+                                }
+
+
+                                return (
+                                    <div
+                                        className="resultbox"
+                                        id={`resultbox${lineIdx * 8 + idx}`}
+                                        key={idx}
+                                        style={style} // 추가: 동적 스타일 적용
+                                    >
+                                        <div className="resultInfo">
+                                            <div className="infoDateWrap">
+                                                <div className="infoDate">
+                                                    {/* 수정된 대체 텍스트 처리 */}
+                                                    {list.indate.split(" ")[0].replace(/-/g, "/") || "?#/$%/;@"}
+                                                </div>
+                                                <div className="infoTime">
+                                                    {/* 수정된 대체 텍스트 처리 */}
+                                                    KOR&nbsp;{formattedTime || "??:&*"}
+                                                </div>
+                                            </div>
+                                            <div className="infoGuestWrap">
+                                                <div className="infoGuest">
+                                                    GUEST&nbsp;&nbsp;{list.seq || "---"}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="resultPrice">
+                                            <div className="infoprice">${list.price || "000"},000</div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    ))}
                 </div>
             </Slider>
         </div>
@@ -160,3 +210,4 @@ function LoadingAuction() {
 }
 
 export default LoadingAuction
+

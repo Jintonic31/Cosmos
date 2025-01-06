@@ -1,105 +1,264 @@
 @font-face{
-    font-family: 'Orbitron-Regular';
-    src: url('./fonts/Orbitron/Orbitron-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'Orbitron-Regular';
+  src: url('./fonts/Orbitron/Orbitron-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
+
+@font-face{
+font-family: 'Pretendard';
+src: url('./fonts/Pretendard/Pretendard-Regular.otf') format('opentype');
+font-weight: normal;
+font-style: normal;
+}
+
+@font-face{
+font-family: 'Helvetica-Roman';
+src: url('./fonts/Helvetica/HelveticaNeueLTPro-Roman.otf') format('opentype');
+font-weight: normal;
+font-style: normal;
+}
+
+@font-face{
+font-family: 'Helvetica-BdCn';
+src: url('./fonts/Helvetica/HelveticaNeueLTPro-BdCn.otf') format('opentype');
+font-weight: normal;
+font-style: normal;
+}
+@font-face{
+font-family: 'Humane';
+src: url('./fonts/Humane/Humane-Regular.otf') format('opentype');
+font-weight: normal;
+font-style: normal;
+}
+
+
 
 /* 나머지 스타일 */
 html, body, #root, .slick-list, .slick-track {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* 스크롤바를 숨김 */
-    box-sizing: border-box; /* 패딩이나 보더를 포함한 전체 크기 계산 */
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* 스크롤바를 숨김 */
+  box-sizing: border-box; /* 패딩이나 보더를 포함한 전체 크기 계산 */
 }
 
 * {
-    box-sizing: border-box; /* 모든 요소에 box-sizing: border-box 적용 */
+  box-sizing: border-box; /* 모든 요소에 box-sizing: border-box 적용 */
 }
 
 .iouterBox{
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin:0;
-    position: relative;
-    overflow: hidden; /* 슬라이더가 화면을 벗어나지 않도록 설정 */
-    background-color:black;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin:0;
+  position: relative;
+  overflow: hidden; /* 슬라이더가 화면을 벗어나지 않도록 설정 */
+  background-color:white;
 }
 
-.scrollbackground{
-    width:100%;
-    height:100%;
-    position: absolute; /* 스크롤 숫자 뒤에 배경을 고정 */
-    top: 0;
-    left: 0;
-    z-index: 0; /* 다른 요소 뒤로 배치 */
-    object-fit: cover; /* 배경 이미지를 영역에 맞게 조정 */
+.ireturnMessage {
+position: absolute;
+width:300px;
+height:24px;
+text-align:center;
+line-height:35px;
+top: 31px;
+right: 44px;
+color: black; /* 텍스트 색상 */
+border-radius: 5px; /* 모서리를 둥글게 */
+font-family:Pretendard;
+font-size: 20px; /* 텍스트 크기 */
+z-index: 20; /* 다른 요소 위에 표시 */
+display: none; /* 기본적으로 숨김 */
 }
+
+/* 텍스트가 표시될 때 활성화 */
+.ireturnMessage.show {
+display: block;
+}
+
+
+.nownumber{
+position:absolute;
+top:350px;
+left:-200px;
+color: #F00;
+font-family: Helvetica-Roman;
+font-size: 44.501px;
+font-style: normal;
+font-weight: 700;
+line-height: 32.225px; /* 72.414% */
+text-transform: uppercase;
+width:700px;
+height:35px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+transform: rotate(-90deg);
+}
+
+.redarrowimg{
+position:absolute;
+left:200px;
+top:340px;
+width:35px;
+height:62px;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: 19px; /* 98.93% */
+text-transform: uppercase;
+}
+
+.igohomeBtnBox{
+position:absolute;
+width:100px;
+height:30px;
+left:42px;
+bottom:38px;
+font-family: Helvetica-Roman;
+
+}
+
+.igohomegraybox{
+z-index:0;
+position:absolute;
+top:280px;
+left:270px;
+width:900px;
+height:198px;
+border-radius:35px;
+background-color:#E7E7E7;
+}
+
+/* .scrollbackground{
+  width:100%;
+  height:100%;
+  position: absolute; /* 스크롤 숫자 뒤에 배경을 고정
+  top: 0;
+  left: 0;
+  z-index: 0; /* 다른 요소 뒤로 배치
+  object-fit: cover; /* 배경 이미지를 영역에 맞게 조정 
+} */
 
 
 .scroll-wheel-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width:12%;
-    height:100%;
-    overflow: hidden; /* 넘치는 숫자들을 잘라냄 */
-    position: relative;
-    z-index: 1; /* 배경보다 위에 표시 */
-    margin-top:30px;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width:12%;
+  height:100%;
+  overflow: hidden; /* 넘치는 숫자들을 잘라냄 */
+  position: relative;
+  z-index: 1; /* 배경보다 위에 표시 */
+  border:1px solid #FF0000;
+  border-top:none;
+  border-bottom:none;
+}
 
-  #scrollcontainer0{
-    margin-left:275px;
+.scroll-wheel-container2 {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+width:9%;
+height:100%;
+overflow: hidden; /* 넘치는 숫자들을 잘라냄 */
+position: relative;
+z-index: 1; /* 배경보다 위에 표시 */
+font-family: Helvetica-Roman;
+font-size:212px;
+font-weight: 700;
+line-height: 190.843px; /* 89.082% */
+text-transform: uppercase;
+}
+
+#scroll-wheel-container0{
+width:5%;
+}
+
+#scroll-wheel-container2{
+margin-right:5px;
+margin-left:5px;
+}
+
+
+#scrollcontainer0{
+  margin-left:300px;
+  border-right:none;
 }
 #scrollcontainer1{
-    margin:30px 13px 0 15px;
+  margin:0 0 0 0;
+  border-right:none;
 }
-  
-  .scroll-wheel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-  }
-  
-  .number-item {
-    font-family: Orbitron-Regular;
-    font-size:140px;
-    color: #4a4a4a;
-    height: 100%;
-    text-align: center;
-    transition: color 0.3s;
-  }
-  
-  .number-item.selected {
-    font-family: Orbitron-Regular;
-    font-size:150px;
-    color: white;
-    margin:20px 0;
-  }
 
-  .submitBtnWrap{
-    position: absolute;
-    right: 0;
-    top: 0;
-    width:20%;
-    height:100%;
-  }
-  .submitBtn{
-    position:absolute;
-    width:100%;
-    height:18%;
-    bottom:95px;
-  }
-  
+.scroll-wheel {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+height: 100%;
+width: 100%;
+overflow: hidden;
+position: relative;
+}
+
+.number-item {
+font-family: Helvetica-Roman;
+font-size:214px;
+font-weight: 700;
+line-height: 190.843px; /* 89.082% */
+text-transform: uppercase;
+color: #1D1D1D;
+height: 100%;
+text-align: center;
+transition: color 0.3s;
+}
+
+.number-item.selected {
+font-family: Helvetica-Roman;
+font-weight: 700;
+line-height: 190.843px; /* 89.082% */
+text-transform: uppercase;
+font-size:214px;
+color: #1D1D1D;
+margin:20px 0;
+}
+
+.submitBtnWrap{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width:20%;
+  height:100%;
+}
+.submitBtn{
+  position:absolute;
+  width: 162px;
+  height: 118px;
+  flex-shrink: 0;
+  bottom:95px;
+  z-index:998;
+}
+
+.submitWord{
+  position:absolute;
+  color: #FFF;
+  text-align: center;
+  font-family: Humane;
+  font-size: 95.885px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 90%; /* 86.297px */
+  text-transform: uppercase;
+  left:30px;
+  bottom:105px;
+  z-index:999;
+}
+

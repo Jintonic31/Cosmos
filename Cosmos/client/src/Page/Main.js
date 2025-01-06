@@ -9,7 +9,7 @@ export default function Main() {
     const socketUrl = process.env.REACT_APP_WEBSOCKET_SRC;
     const ws = useRef(null); // WebSocket 인스턴스
     const sliderRef = useRef(null);
-    const [autoplaySpeed, setAutoplaySpeed] = useState(17010);
+    const [autoplaySpeed, setAutoplaySpeed] = useState(17000);
 
     useEffect(() => {
         // WebSocket 연결 설정
@@ -44,14 +44,14 @@ export default function Main() {
 
     // 슬라이드 지속 시간 동적 설정
     const handleBeforeChange = (current, next) => {
-        const slideDelays = [17010, 30000]; // 첫 슬라이드: 17초, 두 번째 슬라이드: 30초
+        const slideDelays = [17000, 30000]; // 첫 슬라이드: 17초, 두 번째 슬라이드: 30초
         setAutoplaySpeed(slideDelays[next % slideDelays.length]);
     };
 
     const handleAfterChange = (current) => {
         // 첫 슬라이드로 돌아갈 때 지속 시간 초기화
         if (current === 0) {
-            setAutoplaySpeed(17010);
+            setAutoplaySpeed(17000);
         }
     };
 
@@ -123,7 +123,16 @@ export default function Main() {
 
                 {/* 두 번째 슬라이드 (타이머) */}
                 <div className="timerBox">
-                    <img src={`${process.env.REACT_APP_IMG_SRC}/timerimg.png`} alt="Timer" />
+                    {/* <img src={`${process.env.REACT_APP_IMG_SRC}/timerimg.png`} alt="Timer" /> */}
+
+                    <div className='alterimg'>
+                        <div className='timetitle'>
+                            <div id='daytitle'>DAYS</div>
+                            <div id='hourtitle'>HOURS</div>
+                            <div id='mintitle'>MINUTES</div>
+                            <div id='sectitle'>SECONDS</div>
+                        </div>
+                    </div>
                     
                     <div className='hiddenBtn' onClick={() => navi('/substart')}></div>
                     
@@ -136,11 +145,23 @@ export default function Main() {
                         <div className="dotdot">:</div>
                         <div className="time">{timeLeft.split(':')[3]}</div>
                     </div>
-                    <div className="goMainWrap">
-                        <div className="goMainBtn" onClick={goToFirst}></div>
+
+                    <div className='goMainWrap'onClick={goToFirst}>
+                        <div className='textWrap'>
+                            COSMOS N EWHA GALLERY, KOREA<br/>
+                            EXPLORED by voyad RESEARCH BY nova LAB AND ORIVEN SLAES<br/>
+                            DIRECted by HJY producted by SHR
+                        </div>
+                        
                     </div>
+
+                    {/* <div className="goMainWrap">
+                        <div className="goMainBtn" onClick={goToFirst}></div>
+                    </div> */}
+
                 </div>
             </Slider>
         </div>
     );
 }
+

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Slider from 'react-slick';
 import '../Style/SelectPlanet.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,13 +6,44 @@ function SelectPlanet() {
     const navi = useNavigate();
     const socketUrl = process.env.REACT_APP_WEBSOCKET_SRC;
     const reactUrl = `${process.env.REACT_APP_MAIN_SRC}substart`;
-    const sliderRef = useRef(null);
     const ws = useRef(null); // WebSocket 인스턴스
     const inactivityTimeoutRef = useRef(null); // 비활성 타이머 참조
     const returnTimeoutRef = useRef(null); // 이동 타이머 참조
-    const [currentSlide, setCurrentSlide] = useState(0); // 현재 슬라이드 인덱스 추적
     const [showReturnMessage, setShowReturnMessage] = useState(false); // 텍스트 표시 상태
     const [userActive, setUserActive] = useState(false); // 사용자가 입력했는지 상태 저장
+    const touchStartX = useRef(0); // 터치 시작 X 좌표
+    const [currentPosition, setCurrentPosition] = useState(0); // 현재 스와이프 위치 (인덱스)
+    const [offset, setOffset] = useState(0); // 터치에 따라 실시간으로 이동하는 오프셋
+    const planetWidth = 450; // .planetWrap의 고정 너비
+    const planetCount = 6; // 총 행성 이미지 개수
+
+
+
+    const handleTouchStart = (e) => {
+      touchStartX.current = e.touches[0].clientX; // 터치 시작 좌표 기록
+      resetInactivityTimer(); // 스와이프 시작 시 타이머 리셋
+    };
+
+    const handleTouchMove = (e) => {
+        const currentTouchX = e.touches[0].clientX;
+        const deltaX = currentTouchX - touchStartX.current;
+
+        // 터치 움직임에 따라 오프셋 실시간 업데이트
+        setOffset(deltaX);
+    };
+
+    const handleTouchEnd = () => {
+        if (Math.abs(offset) > planetWidth / 4) { // 이동 거리가 기준 이상인 경우
+            if (offset > 0 && currentPosition > 0) {
+                setCurrentPosition((prev) => prev - 1); // 이전 행성으로 이동
+            } else if (offset < 0 && currentPosition < planetCount - 1) {
+                setCurrentPosition((prev) => prev + 1); // 다음 행성으로 이동
+            }
+        }
+
+        setOffset(0); // 오프셋 초기화
+        resetInactivityTimer(); // 스와이프 종료 시 타이머 리셋
+    };
 
 
     // 비활성 타이머 리셋 함수
@@ -42,10 +72,10 @@ function SelectPlanet() {
             }
 
             // 조건 2: WebSocket을 통해 다른 브라우저를 '/'로 이동
-              //if (ws.current && ws.current.readyState === WebSocket.OPEN) {
-                  //const message = JSON.stringify({ action: 'navigate', url: '/' });
-                  //ws.current.send(message);
-              //}
+            if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+                const message = JSON.stringify({ action: 'navigate', url: '/' });
+                ws.current.send(message);
+            }
 
         }, 3000);
       }, 10000);
@@ -121,77 +151,56 @@ function SelectPlanet() {
       }
   };
 
-    const settings = {
-        autoplay: false,
-        infinite: false,
-        pauseOnHover: false,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        // 첫 슬라이드에서 prev 버튼 숨김
-        prevArrow: (
-            <button
-                type="button"
-                className={`slick-prev`} // 조건: 첫 슬라이드에서 hidden 클래스 추가
-            >
-                <img src={`${process.env.REACT_APP_IMG_SRC}/prearrow.png`} alt="Previous" className={`pbutton_img${currentSlide}`}/>
-            </button>
-        ),
-        // 마지막 슬라이드에서 next 버튼 숨김
-        nextArrow: (
-            <button
-                type="button"
-                className={`slick-next`} // 조건: 마지막 슬라이드에서 hidden 클래스 추가
-            >
-                <img src={`${process.env.REACT_APP_IMG_SRC}/nextarrow.png`} alt="Next" className={`nbutton_img${currentSlide}`}/>
-            </button>
-        ),
-        beforeChange: (_, next) => {
-            setCurrentSlide(next); // 슬라이드 변경 시 현재 슬라이드 상태 업데이트
-        },
-    };
-
 
     return (
       <div className="souterBox">
-        <Slider className="sslider" {...settings} ref={sliderRef}>
-          <div className="choiceplanet">
-            <img src={`${process.env.REACT_APP_IMG_SRC}/firstpl.png`} alt="wjoin" className='planetimg'/>
-            <img src={`${process.env.REACT_APP_IMG_SRC}/whitejoin.png`} alt="Planet 2" className='joinbtn' onClick={handleJoinClick}/>
-          </div>
-          <div className="choiceplanet">
-            <img src={`${process.env.REACT_APP_IMG_SRC}/secondpl.png`} alt="Planet 2" className='planetimg'/>
-            <img src={`${process.env.REACT_APP_IMG_SRC}/grayjoin.png`} alt="gjoin" className='joinbtn' />
-          </div>
-          <div className="choiceplanet">
-            <img src={`${process.env.REACT_APP_IMG_SRC}/thirdpl.png`} alt="Planet 3" className='planetimg'/>
-            <img src={`${process.env.REACT_APP_IMG_SRC}/whitejoin.png`} alt="wjoin" className='joinbtn' onClick={handleJoinClick} />
-          </div>
-          <div className="choiceplanet">
-            <img src={`${process.env.REACT_APP_IMG_SRC}/fourthpl.png`} alt="Planet 4" className='planetimg'/>
-            <img src={`${process.env.REACT_APP_IMG_SRC}/whitejoin.png`} alt="wjoin" className='joinbtn' onClick={handleJoinClick} />
-          </div>
-          <div className="choiceplanet">
-            <img src={`${process.env.REACT_APP_IMG_SRC}/fifthpl.png`} alt="Planet 5" className='planetimg'/>
-            <img src={`${process.env.REACT_APP_IMG_SRC}/grayjoin.png`} alt="gjoin" className='joinbtn' />
-          </div>
-          <div className="choiceplanet">
-            <img src={`${process.env.REACT_APP_IMG_SRC}/sixthpl.png`} alt="Planet 6" className='planetimg'/>
-            <img src={`${process.env.REACT_APP_IMG_SRC}/grayjoin.png`} alt="gjoin" className='joinbtn' />
-          </div>
-        </Slider>
 
-        <div className="gohomeBox">
-          <div className="gohomeBtn" onClick={() => navi('/substart')}>
-            <img src={`${process.env.REACT_APP_IMG_SRC}/gohomeBtn.png`} alt="Go Home" />
-            <div
-                className={`returnMessage ${showReturnMessage ? 'show' : ''}`}
-            >
-                3초 뒤 처음 화면으로 돌아갑니다.
-            </div>
+        <img src={`${process.env.REACT_APP_IMG_SRC}/selectback.png`} alt="wjoin" className='selectBackimg'/>
+
+        <div
+            className={`returnMessage ${showReturnMessage ? 'show' : ''}`}
+        >
+            3초 뒤 처음 화면으로 돌아갑니다.
+        </div>
+
+
+        <div
+          className="planetBox"
+          style={{
+              transform: `translateX(calc(-${currentPosition * planetWidth}px + ${offset}px))`,
+              transition: offset === 0 ? 'transform 0.5s ease' : 'none', // 터치 종료 시에만 부드러운 애니메이션
+          }}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div className='planetWrap'></div>
+          <div className='planetWrap'>
+            <img src={`${process.env.REACT_APP_IMG_SRC}/planet1.png`} alt='planet1' className="planetimg" onClick={handleJoinClick}/>
+          </div>
+          <div className='planetWrap'>
+            <img src={`${process.env.REACT_APP_IMG_SRC}/planet2.png`} alt='planet1' className="planetimg" />
+          </div>
+          <div className='planetWrap'>
+            <img src={`${process.env.REACT_APP_IMG_SRC}/planet3.png`} alt='planet1' className="planetimg" onClick={handleJoinClick} />
+          </div>
+          <div className='planetWrap'>
+            <img src={`${process.env.REACT_APP_IMG_SRC}/planet4.png`} alt='planet1' className="planetimg" onClick={handleJoinClick} />
+          </div>
+          <div className='planetWrap'>
+            <img src={`${process.env.REACT_APP_IMG_SRC}/planet5.png`} alt='planet1' className="planetimg" />
+          </div>
+          <div className='planetWrap'>
+            <img src={`${process.env.REACT_APP_IMG_SRC}/planet6.png`} alt='planet1' className="planetimg" />
           </div>
         </div>
+
+        <div className='goHomeBtn' onClick={() => navi('/substart')}></div>
+  
+        
       </div>
   );
 }
 
 export default SelectPlanet;
+

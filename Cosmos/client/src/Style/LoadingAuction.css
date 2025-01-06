@@ -1,3 +1,17 @@
+@font-face{
+    font-family: 'Helvetica-Roman';
+    src: url('./fonts/Helvetica/HelveticaNeueLTPro-Roman.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+    font-family: 'Humane';
+    src: url('./fonts/Humane/Humane-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 html, body, #root, .slick-list, .slick-track {
     width: 100%;
     height: 100%;
@@ -50,42 +64,99 @@ html, body, #root, .slick-list, .slick-track {
 }
 
 .aresultline1, .aresultline2, .aresultline3, .aresultline4, .aresultline5, .aresultline6{
+    display:flex;
+    flex-direction:row;
+    font-size:20px;
+    width:200%;
+    height:180px;
+}
+
+.aresultline1{animation: infiniteScroll 25s linear infinite;}  /* 스크롤 속도 조정 가능 */
+.aresultline2{animation: infiniteScroll2 27s linear infinite;}
+.aresultline3{ animation: infiniteScroll 29s linear infinite;}
+.aresultline4{animation: infiniteScroll2 29s linear infinite;}
+.aresultline5{animation: infiniteScroll 27s linear infinite;}
+.aresultline6{animation: infiniteScroll2 25s linear infinite;}
+
+
+.resultbox{
+    display:flex;
+    flex-direction:row;
+    width:708px;
+    height:180px;
+    flex-shrink: 0;
+    padding:11px 27px;
+}
+
+
+.resultInfo{
+    display:flex;
+    flex-direction: column;
+    position:relative;
+}
+
+.infoDateWrap{
     flex:1;
-    width:180%;
-    height: calc(100vh / 6);
-    display:flex; /* !important; flexbox 레이아웃 강제 적용 */
-    flex-direction:row; /* !important; flexbox 레이아웃 강제 적용 */
+    display:flex;
+    flex-direction:row;
 }
 
-.aresultline1{animation: moveImages 30s linear infinite;}
-.aresultline2{animation: moveImages2 27s linear infinite;}
-.aresultline3{animation: moveImages 24.3s linear infinite;}
-.aresultline4{animation: moveImages2 21.8s linear infinite;}
-.aresultline5{animation: moveImages 19.7s linear infinite;}
-.aresultline6{animation: moveImages2 17.8s linear infinite;}
-
-.aresultline1 img, .aresultline2 img, .aresultline3 img, .aresultline4 img, .aresultline5 img, .aresultline6 img{
-    flex: 0 0 auto; /* 크기 변경 방지 */
-    aspect-ratio: 596.5 / 179.8; /* 지정된 가로 세로 비율 유지 */
-    height: 100%; /* 행 높이에 맞게 이미지 크기 조정 */
-    object-fit: contain; /* 왜곡 없이 컨테이너에 맞게 조정 */
-    border-radius: 100px; /* 모서리를 둥글게 설정 */
+.infoDate{
+    width:100px;
+    margin-right:30px;
+    font-family: "Helvetica-Roman";
+    font-size: 18.489px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24.57px; /* 132.887% */
+}
+.infoTime{
+    font-family: "Helvetica-Roman";
+    font-size: 18.489px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24.57px; /* 132.887% */
 }
 
-@keyframes moveImages {
+
+.infoGuestWrap{
+    position:absolute;
+    font-family: "Helvetica-Roman";
+    font-size: 18.489px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24.57px; /* 132.887% */
+    flex:1;
+    bottom:0;
+}
+
+
+.resultPrice{
+    width:100%;
+    height:100%;
+    text-align: right;
+    font-family: Humane;
+    font-size: 175.293px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 180px; /* 68.457% */
+}
+
+
+/* 무한 스크롤 애니메이션 정의 */
+@keyframes infiniteScroll {
     0% {
-        transform: translateX(0); /* 시작 지점 (이미지가 처음 위치에 있음) */
+        transform: translateX(0);
     }
     100% {
-        transform: translateX(-100%); /* 이미지를 화면 왼쪽 밖으로 이동 */
+        transform: translateX(-100%);
     }
 }
-
-@keyframes moveImages2 {
+@keyframes infiniteScroll2 {
     0% {
-        transform: translateX(-100%); /* 이미지를 화면 오른쪽 밖에서 시작 */
+        transform: translateX(-100%);
     }
     100% {
-        transform: translateX(0); /* 이미지를 화면 왼쪽 밖으로 이동 */
+        transform: translateX(0);
     }
 }

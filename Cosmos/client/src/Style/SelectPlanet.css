@@ -25,6 +25,7 @@ html, body, #root, .slick-list, .slick-track {
 .souterBox {
     display: flex;
     flex-direction:column;
+    align-items:center;
     align-items: center;
     width: 100%;
     height: 100%;
@@ -32,116 +33,30 @@ html, body, #root, .slick-list, .slick-track {
     margin:0;
     position: relative;
     overflow: hidden; /* 슬라이더가 화면을 벗어나지 않도록 설정 */
-    background-color:black;
 }
 
-.sslider {
-    display:flex;
-    flex-direction:row;
-    justify-content:center;
-    align-items:center;
-    width: 100%;
-    height:92%;
-    background-color:#1D1D1D;
-}
-
-.slick-prev:before,
-.slick-next:before {
-  display: none; /* Slick 기본 버튼 숨기기 */
-}
-
-
-.slick-prev, .slick-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-60%); /* 수직 중앙 정렬 */
-    width: 50%; /* 버튼 크기 */
-    max-width:90px;
-    height: 70%;
-    max-height:132px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    z-index: 10;
-}
-
-.pbutton_img0{display:none;}
-.nbutton_img5{display:none;}
-
-
-.slick-prev {
-    left: 10px; /* 왼쪽 끝 */
-}
-
-.slick-next {
-    right: 10px; /* 오른쪽 끝 */
-}
-
-.slick-prev img, .slick-next img {
+.selectBackimg {
+    position: absolute; /* 부모인 .souterBox 기준으로 배치 */
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain; /* 이미지 비율 유지 */
-}
-
-.slick-prev.hidden,
-.slick-next.hidden {
-    display: none !important;
-}
-
-.choiceplanet{
-    width:100%;
-    height:100%;
-    object-fit: contain;
-    position: relative;
-}
-.planetimg{
-    width:100%;
-    height:100%;
-}
-.choiceplanet .joinbtn{
-    position: absolute;
-    bottom: 88px; /* Align to bottom */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Center horizontally */
-    width: 135px;
-    height: 61px;
-    max-height: 10%; /* Adjust the size if needed */
-}
-
-
-.gohomeBox{
-    display:flex;
-    flex-direction:row;
-    align-items:center;
-    width:100%;
-    height:8%;
-    background-color:#1D1D1D;
-    ;
-}
-
-.gohomeBtn{
-    width:50%;
-    max-width:84px;
-    height:50%;
-    max-height:84px;
-    margin-left:10px;
-    font-family:Pretendard;
-
-}
-.gohomeBtn img{
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* 이미지 비율 유지 */
+    object-fit: cover; /* 이미지를 컨테이너 크기에 맞춤 */
+    z-index: 0; /* 가장 아래에 배치 */
 }
 
 .returnMessage {
     position: absolute;
-    bottom: 10px; /* 화면 우측 하단에 배치 */
-    right: 10px;
-    color: white; /* 텍스트 색상 */
-    padding: 10px 20px; /* 여백 */
+    width:300px;
+    height:24px;
+    text-align:center;
+    line-height:35px;
+    top: 300px;
+    right: 15px;
+    color: black; /* 텍스트 색상 */
     border-radius: 5px; /* 모서리를 둥글게 */
-    font-size: 15px; /* 텍스트 크기 */
+    font-family:Pretendard;
+    font-size: 20px; /* 텍스트 크기 */
     z-index: 20; /* 다른 요소 위에 표시 */
     display: none; /* 기본적으로 숨김 */
 }
@@ -150,3 +65,37 @@ html, body, #root, .slick-list, .slick-track {
 .returnMessage.show {
     display: block;
 }
+
+.planetBox{
+    display: flex;
+    flex-direction: row;
+    width: max-content;
+    height: 450px;
+    position: absolute; /* 부모 컨테이너 기준으로 배치 */
+    top: 38%;
+    left: 0;
+    z-index: 1;
+    transition: transform 0.3s ease; /* 부드러운 스와이프 애니메이션 */
+}
+
+.planetWrap{
+    width: 450px; /* 고정 너비 */
+    height: 450px;
+    flex-shrink: 0; /* 요소 크기 고정 */
+}
+
+.planetimg{
+    width:100%;
+    height:100%;
+    object-fit: contain;
+}
+
+
+.goHomeBtn{
+    position:absolute;
+    width:100px;
+    height:30px;
+    left:0;
+    bottom:40px;
+}
+
