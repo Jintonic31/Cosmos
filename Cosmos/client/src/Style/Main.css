@@ -1,3 +1,9 @@
+/* IMAC, IPAD FULL SCREEN SIZE */
+/* IMAC (21.5") : 2048 x 1152 */
+/* IPAD (pro) : 1366 x 1024 */
+
+
+
 /* slick-carousel의 기본 스타일 */
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
@@ -124,7 +130,7 @@ html, body, #root, .slick-list, .slick-track {
 #daytitle{
     width:173px;
     height:58px;
-    margin-left:15px;
+    margin-left:110px;
     text-align:center;
     line-height:58px;
 }
@@ -132,7 +138,7 @@ html, body, #root, .slick-list, .slick-track {
 #hourtitle{
     width:173px;
     height:58px;
-    margin-left:420px;
+    margin-left:410px;
     text-align:center;
     line-height:58px;
 }
@@ -148,7 +154,7 @@ html, body, #root, .slick-list, .slick-track {
 #sectitle{
     width:173px;
     height:58px;
-    margin-left:350px;
+    margin-left:330px;
     margin-right:60px;
     text-align:center;
     line-height:58px;
@@ -264,7 +270,3 @@ html, body, #root, .slick-list, .slick-track {
     width:31%;
     height: 100%;
 } */
-
-
-
-

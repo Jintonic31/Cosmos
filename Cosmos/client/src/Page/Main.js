@@ -71,7 +71,7 @@ export default function Main() {
 
     // 타이머 로직
     const [timeLeft, setTimeLeft] = useState('');
-    const endDate = new Date('2024-12-22T21:00:00'); // 종료 날짜 설정
+    const endDate = new Date('2025-05-31T00:00:00'); // 종료 날짜 설정
 
     const updateTimer = () => {
         const now = new Date();
@@ -164,4 +164,3 @@ export default function Main() {
         </div>
     );
 }
-

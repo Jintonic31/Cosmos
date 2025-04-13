@@ -56,9 +56,9 @@ function LoadingVideo() {
   
         inactivityTimeoutRef.current = setTimeout(() => {
           setUserActive(false); // 입력이 없음을 상태에 반영
-          setShowReturnMessage(true); // 10초 후 텍스트 표시
+          setShowReturnMessage(true); // 18초 후 텍스트 표시
   
-          // 3초 후 이동
+          // 5초 후 이동
           returnTimeoutRef.current = setTimeout(() => {
               
               // 조건 1
@@ -71,9 +71,11 @@ function LoadingVideo() {
                     const message = JSON.stringify({ action: 'navigate', url: '/' });
                     ws.current.send(message);
                 }
-  
-          }, 3000);
-        }, 13000);
+            // 이동 안내 멘트 출력 후 페이지 이동 전 대기 시간 (5초) 
+            }, 5000);
+
+        // 사용자 반응이 없을 경우 페이지 이동 예정 안내 멘트 출력까지 대기 시간 (18초)
+        }, 18000);
   
     };
 
@@ -191,7 +193,7 @@ function LoadingVideo() {
                     <div
                         className={`lreturnMessage ${showReturnMessage ? 'show' : ''}`}
                     >
-                        3초 뒤 처음 화면으로 돌아갑니다.
+                        5초 뒤 처음 화면으로 돌아갑니다.
                     </div>
 
                     <img src={`${process.env.REACT_APP_IMG_SRC}/done2.png`} alt="Success" />
@@ -269,4 +271,3 @@ function LoadingVideo() {
 }
 
 export default LoadingVideo;
-

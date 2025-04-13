@@ -36,7 +36,7 @@ html, body, #root, .slick-list, .slick-track {
 .rectangleimg1{
     position:absolute;
     top:10px;
-    left:15px;
+    left:35px;
     width:602px;
     height:344px;
     z-index:3;
@@ -45,7 +45,7 @@ html, body, #root, .slick-list, .slick-track {
 .rectangleimg2{
     position:absolute;
     top:10px;
-    left:658px;
+    left:720px;
     width:602px;
     height:344px;
     z-index:3;
@@ -54,7 +54,7 @@ html, body, #root, .slick-list, .slick-track {
 .rectangleimg3{
     position:absolute;
     top:10px;
-    left:1300px;
+    left:1410px;
     width:605px;
     height:344px;
     z-index:3;
@@ -77,4 +77,3 @@ html, body, #root, .slick-list, .slick-track {
     width:598px;
     height:336px;
 }
-

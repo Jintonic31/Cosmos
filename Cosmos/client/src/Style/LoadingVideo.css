@@ -77,10 +77,10 @@ html, body, #root, .slick-list, .slick-track {
 .lsuccessResultBox{
     position:absolute;
     z-index:1;
-    top:420px;
-    left:200px;
-    width:800px;
-    height:330px;
+    top:550px;
+    left:250px;
+    width:900px;
+    height:380px;
     display:flex;
     align-items:center;
 }
@@ -136,7 +136,7 @@ html, body, #root, .slick-list, .slick-track {
     font-size: 251.793px;
     font-style: normal;
     font-weight: 200;
-    line-height: 400px; /* 86.299% */
+    line-height: 500px; /* 86.299% */
 }
 
 
@@ -167,18 +167,17 @@ html, body, #root, .slick-list, .slick-track {
 
 .lreturnMessage {
     position: absolute;
-    top: 50px; /* 화면 우측 하단에 배치 */
+    top: 10px; /* 화면 우측 하단에 배치 */
     right: 10px;
     color: white; /* 텍스트 색상 */
     padding: 10px 20px; /* 여백 */
     border-radius: 5px; /* 모서리를 둥글게 */
-    font-size: 15px; /* 텍스트 크기 */
+    font-size: 20px; /* 텍스트 크기 */
     z-index: 20; /* 다른 요소 위에 표시 */
     display: none; /* 기본적으로 숨김 */
 }
 
 /* 텍스트가 표시될 때 활성화 */
 .lreturnMessage.show {
-    display: none;
+    display: flex;
 }
-

@@ -61,9 +61,9 @@ function SelectPlanet() {
 
       inactivityTimeoutRef.current = setTimeout(() => {
         setUserActive(false); // 입력이 없음을 상태에 반영
-        setShowReturnMessage(true); // 10초 후 텍스트 표시
+        setShowReturnMessage(true); // 15초 후 텍스트 표시
 
-        // 3초 후 이동
+        // 5초 후 이동
         returnTimeoutRef.current = setTimeout(() => {
             
             // 조건 1
@@ -76,9 +76,10 @@ function SelectPlanet() {
                 const message = JSON.stringify({ action: 'navigate', url: '/' });
                 ws.current.send(message);
             }
-
-        }, 3000);
-      }, 10000);
+        // 이동 안내 멘트 출력 후 페이지 이동 전 대기 시간 (5초)
+        }, 5000);
+      // 사용자 반응이 없을 경우 페이지 이동 예정 안내 멘트 출력까지 대기 시간 (15초)
+      }, 15000);
 
     };
 
@@ -160,7 +161,7 @@ function SelectPlanet() {
         <div
             className={`returnMessage ${showReturnMessage ? 'show' : ''}`}
         >
-            3초 뒤 처음 화면으로 돌아갑니다.
+            5초 뒤 처음 화면으로 돌아갑니다.
         </div>
 
 
@@ -203,4 +204,3 @@ function SelectPlanet() {
 }
 
 export default SelectPlanet;
-

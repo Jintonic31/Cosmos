@@ -84,7 +84,7 @@ display: block;
 
 .nownumber{
 position:absolute;
-top:350px;
+top:470px;
 left:-200px;
 color: #F00;
 font-family: Helvetica-Roman;
@@ -104,8 +104,8 @@ transform: rotate(-90deg);
 
 .redarrowimg{
 position:absolute;
-left:200px;
-top:340px;
+left:220px;
+top:470px;
 width:35px;
 height:62px;
 font-size: 20px;
@@ -117,20 +117,21 @@ text-transform: uppercase;
 
 .igohomeBtnBox{
 position:absolute;
-width:100px;
+width:250px;
 height:30px;
-left:42px;
-bottom:38px;
+left:3px;
+bottom:30px;
 font-family: Helvetica-Roman;
+font-size: 22px;
 
 }
 
 .igohomegraybox{
 z-index:0;
 position:absolute;
-top:280px;
-left:270px;
-width:900px;
+top:415px;
+left:300px;
+width:960px;
 height:198px;
 border-radius:35px;
 background-color:#E7E7E7;
@@ -243,7 +244,7 @@ margin:20px 0;
   width: 162px;
   height: 118px;
   flex-shrink: 0;
-  bottom:95px;
+  bottom:30px;
   z-index:998;
 }
 
@@ -258,7 +259,6 @@ margin:20px 0;
   line-height: 90%; /* 86.297px */
   text-transform: uppercase;
   left:30px;
-  bottom:105px;
+  bottom:40px;
   z-index:999;
 }
-

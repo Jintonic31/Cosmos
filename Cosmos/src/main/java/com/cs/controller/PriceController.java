@@ -30,6 +30,7 @@ public class PriceController {
 	@PostMapping("/insertmoney")
 	public HashMap<String, Object> insertmoney(@RequestBody Price price){
 		ps.insertmoney(price);
+		System.out.println("요청 받은 price: " + price.getPrice());
 		return null;
 	}
 	

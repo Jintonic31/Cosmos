@@ -88,9 +88,9 @@ function InputMoney() {
 
     inactivityTimeoutRef.current = setTimeout(() => {
       setUserActive(false); // 입력이 없음을 상태에 반영
-      setShowReturnMessage(true); // 10초 후 텍스트 표시
+      setShowReturnMessage(true); // 15초 후 텍스트 표시
 
-      // 3초 후 이동
+      // 5초 후 이동
       returnTimeoutRef.current = setTimeout(() => {
           
           // 조건 1
@@ -103,9 +103,11 @@ function InputMoney() {
               const message = JSON.stringify({ action: 'navigate', url: '/' });
               ws.current.send(message);
           }
+      // 이동 안내 멘트 출력 후 페이지 이동 전 대기 시간 (5초)  
+      }, 5000);
 
-      }, 3000);
-    }, 10000);
+    // 사용자 반응이 없을 경우 페이지 이동 예정 안내 멘트 출력까지 대기 시간 (15초)
+    }, 15000);
 
   };
 
@@ -141,11 +143,12 @@ useEffect(() => {
 
     // 콘솔에 값 출력
     // console.log(`서브밋 될 값 #1 : ${selectedValues}`);
-    //console.log('서브밋 될 값 #2 : ', selectedValues);    
+    // console.log('서브밋 될 값 #2 : ', selectedValues);    
 
     // DB로 데이터 전송
     axios.post(`${springUrl}/api/price/insertmoney`, { price: selectedValues })
       .then((result) => {
+        //console.log('서버전송 url : ' + springUrl)
         console.log('가격 전송 완료');
         navi('/loadingvideo');  // iPad에서 /loadingvideo로 이동
       })
@@ -179,7 +182,7 @@ useEffect(() => {
       <div
           className={`ireturnMessage ${showReturnMessage ? 'show' : ''}`}
       >
-          3초 뒤 처음 화면으로 돌아갑니다.
+          5초 뒤 처음 화면으로 돌아갑니다.
       </div>
 
 
@@ -255,4 +258,3 @@ useEffect(() => {
 }
 
 export default InputMoney;
-

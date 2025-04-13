@@ -210,4 +210,3 @@ function LoadingAuction() {
 }
 
 export default LoadingAuction
-

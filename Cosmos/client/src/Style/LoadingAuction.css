@@ -68,22 +68,24 @@ html, body, #root, .slick-list, .slick-track {
     flex-direction:row;
     font-size:20px;
     width:200%;
-    height:180px;
+    height:193px;
+    top:0;
+    bottom:0;
 }
 
-.aresultline1{animation: infiniteScroll 25s linear infinite;}  /* 스크롤 속도 조정 가능 */
-.aresultline2{animation: infiniteScroll2 27s linear infinite;}
-.aresultline3{ animation: infiniteScroll 29s linear infinite;}
-.aresultline4{animation: infiniteScroll2 29s linear infinite;}
-.aresultline5{animation: infiniteScroll 27s linear infinite;}
-.aresultline6{animation: infiniteScroll2 25s linear infinite;}
+.aresultline1{animation: infiniteScroll 26s linear infinite;}  /* 스크롤 속도 조정 가능 */
+.aresultline2{animation: infiniteScroll2 28s linear infinite;}
+.aresultline3{ animation: infiniteScroll 30s linear infinite;}
+.aresultline4{animation: infiniteScroll2 30s linear infinite;}
+.aresultline5{animation: infiniteScroll 28s linear infinite;}
+.aresultline6{animation: infiniteScroll2 26s linear infinite;}
 
 
 .resultbox{
     display:flex;
     flex-direction:row;
     width:708px;
-    height:180px;
+    height:100%;
     flex-shrink: 0;
     padding:11px 27px;
 }
